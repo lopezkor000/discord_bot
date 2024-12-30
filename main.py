@@ -1,0 +1,37 @@
+import discord, os
+from discord import Message
+
+class TestBot(discord.Client):
+  async def on_ready(self):
+    print(f'Logged on as {self.user}')
+
+  async def on_message(self, message:Message):
+    if message.author == self.user:
+      return
+    
+    print(f'Message from {message.author}: {message.content}')
+    
+    if message.content.startswith('Hello!'):
+      await message.channel.send('Hello!')
+    
+    if message.content.startswith('$del'):
+      try:
+        amount = int(message.content.split(' ')[-1]) + 1
+
+        if amount < 0:
+          message.channel.send('Need a positive number')
+          return
+        
+        messages = [message async for message in message.channel.history(limit=amount)]
+        
+        await message.channel.delete_messages(messages)
+      except Exception as e:
+        print('Error:', e)
+
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = TestBot(intents=intents)
+TOKEN = os.environ.get('token')
+client.run(TOKEN)
