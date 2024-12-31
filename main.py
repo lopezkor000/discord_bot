@@ -8,11 +8,11 @@ class TestBot(discord.Client):
   async def on_message(self, message:Message):
     if message.author == self.user:
       return
+
+    if not message.content.startswith('$'):
+      return
     
-    print(f'Message from {message.author}: {message.content}')
-    
-    if message.content.startswith('Hello!'):
-      await message.channel.send('Hello!')
+    print(f'Command from {message.author}: {message.content}')
     
     if message.content.startswith('$del'):
       try:
@@ -27,7 +27,6 @@ class TestBot(discord.Client):
         await message.channel.delete_messages(messages)
       except Exception as e:
         print('Error:', e)
-
 
 intents = discord.Intents.default()
 intents.message_content = True
