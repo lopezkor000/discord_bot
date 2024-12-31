@@ -1,6 +1,10 @@
 import discord, os
 from discord import Message
 
+class TaskManager:
+  def __init__(self):
+    pass
+
 class TestBot(discord.Client):
   async def on_ready(self):
     print(f'Logged on as {self.user}')
