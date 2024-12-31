@@ -1,11 +1,11 @@
 import discord, os
-from discord import Message
+from discord import Message, Client, Intents
 
 class TaskManager:
   def __init__(self):
     pass
 
-class TaskBot(discord.Client):
+class TaskBot(Client):
   async def on_ready(self):
     print(f'Logged on as {self.user}')
 
@@ -32,7 +32,7 @@ class TaskBot(discord.Client):
       except Exception as e:
         print('Error:', e)
 
-intents = discord.Intents.default()
+intents = Intents.default()
 intents.message_content = True
 
 client = TaskBot(intents=intents)
