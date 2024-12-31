@@ -5,7 +5,7 @@ class TaskManager:
   def __init__(self):
     pass
 
-class TestBot(discord.Client):
+class TaskBot(discord.Client):
   async def on_ready(self):
     print(f'Logged on as {self.user}')
 
@@ -35,6 +35,6 @@ class TestBot(discord.Client):
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = TestBot(intents=intents)
+client = TaskBot(intents=intents)
 TOKEN = os.environ.get('token')
 client.run(TOKEN)
